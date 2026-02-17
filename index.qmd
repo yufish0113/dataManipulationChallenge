@@ -236,6 +236,7 @@ shipments_with_lateness = (
 
 print("Added lateness calculations:")
 print(shipments_with_lateness[['shipID', 'plannedShipDate', 'actualShipDate', 'is_late', 'days_late']].head())
+
 ```
 
 ::: {.callout-tip}
@@ -253,8 +254,10 @@ print(shipments_with_lateness[['shipID', 'plannedShipDate', 'actualShipDate', 'i
 - What is the `dtype` of the `actualShipDate` series? How can you find out using code?
 - Why is it important that both `actualShipDate` and `plannedShipDate` have the same data type for comparison?
 
+
 **Question 2: String vs Date Comparison**
 - Can you give an example where comparing two dates as strings would yield unintuitive results, e.g. what happens if you try to compare "04-11-2025" and "05-20-2024" as strings vs as dates?
+
 
 **Question 3: Debug This Code**
 ```python
@@ -273,17 +276,24 @@ What's wrong with the `lateStatement` assignment and how would you fix it?
 
 ::: {.callout-tip}
 ## Your Answer: Data Types and Date Handling
-*Replace this with your answer to Question 1.*
+*Question 1Answers: (1)The dtype of the 'actualShipDate' series is datetime64[ns]. Because the column are parsed as datetimes using the parse_dates argument in read_csv().
+(2)We can find out using the code: shipments_df['actualShipDate'].dtype
+(3)Because the comparison only works if both sides are datetimes. The comparisons between dates require compatible formats. If one column is stored as a datetime object and the other is not, the comparison may fail or produce incorrect results, for example, it might be done lexicographically(comparing two dates as strings instead of actual dates). *
 :::
 
 ::: {.callout-tip}
 ## Your Answer: String vs Date Comparison
-*Replace this with your answer to Question 2.*
+*Question 2 Answer: String comparison is based on alphabetical order, not time order. If the date format is MM-DD-YYYY, the year appears at the end, while string comparison starts from the beginning. This means the comparison gives priority to the month instead of the year. As a result, when comparing dates across different years, the result can be incorrect. The most important part of a date-the year, is at the end, but string comparison only looks at the first characters.
+For example, when comparing "04-11-2025" and "05-20-2024" as strings, Python compares them from left to right. Since "04" comes before "05" (because 4 < 5), the result becomes:"04-11-2025" < "05-20-2024". However, when the values are converted to datetime objects, Python compares them based on actual time. Because 2025 is later than 2024, we correctly get: April 11, 2025 > May 20, 2024. This makes sense because the comparison now follows real chronological order.*
 :::
 
 ::: {.callout-tip}
 ## Your Answer: Debug This Code
-*Replace this with your answer to Question 3.*
+*Question 3 Answer:The lateStatement line has two main problems.
+First, shipments_df does not yet contain the is_late column. The column is_late is created within the same .assign() call, so when lateStatement tries to access shipments_df['is_late'], it results in a ‘KeyError’.
+Second, the code references the wrong DataFrame. Inside method chaining, we must use lambda df: to refer to the current version of the DataFrame. Using shipments_df refers to the original DataFrame, not the updated one with the newly created columns.
+The issue can be fixed by using:
+lateStatement=lambda df: df['is_late'].map({True: "Darn Shipment is Late", False: "Shipment is on Time"}).*
 :::
 
 ### 2. Subset: Querying Rows and Filtering Columns
