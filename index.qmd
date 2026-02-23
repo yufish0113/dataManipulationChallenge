@@ -349,7 +349,8 @@ Question 1 Answer:
 
 ::: {.callout-tip}
 ## Your Answer: Additional Row Querying
-*Question 2 Answer:To query rows for shipments that are at least a certain number of days late using a variable, we can use the `@` symbol in `.query()` to reference Python variables. 
+*Question 2 Answer:
+To query rows for shipments that are at least a certain number of days late using a variable, we can use the `@` symbol in `.query()` to reference Python variables. 
 For example, to query shipments that are at least 5 days late, we can first set: late_threshold = 5
 Then use:
 .query('days_late >= @late_threshold')
@@ -444,7 +445,7 @@ print(sorted_by_lateness[['shipID', 'partID', 'days_late', 'is_late']].head(10))
 ## Your Answer: Sorting Strategies
 *Question 1 Answer:
 (1) `ascending=True` sorts from smallest to largest (For example, A→Z, 0→9, False before True). `ascending=False` sorts from largest to smallest (For example, Z→A, 9→0, True before False). In this business case: for `days_late`, `ascending=False` means puts the worst (most days late) shipments first.
-(2)To sort by multiple columns, we pass a list of column names to sort_values(). For example:
+(2) To sort by multiple columns, we pass a list of column names to sort_values(). For example:
 `clean_shipments.sort_values(by=['is_late', 'days_late'], ascending=[False, False])` sorts first by `is_late` (late first), then by `days_late` (most days late first).*
 :::
 
@@ -542,7 +543,8 @@ If the numbers are the same, no shipments were lost.*
 
 ::: {.callout-tip}
 ## Your Answer: Key Column Matching
-*Question 2 Answer: Duplicate `partID` in the right table will create multiple rows for the same shipment. This happens because each shipment record will match several category rows. It may cause data duplication and incorrect calculations.
+*Question 2 Answer: 
+Duplicate `partID` in the right table will create multiple rows for the same shipment. This happens because each shipment record will match several category rows. It may cause data duplication and incorrect calculations.
 To check for duplicates, we can run:
 product_line_df['partID'].duplicated().sum()*
 :::
@@ -709,6 +711,10 @@ for i, (cat, pct) in enumerate(zip(on_time.index, on_time.values)):
 plt.tight_layout()
 fig
 ```
+
+*This visualization shows the on-time delivery rate across product categories. 
+We can see clear differences in performance, with some categories achieving higher service levels than others. Categories with lower on-time rates may require operational review to identify potential fulfillment challenges. 
+Overall, the chart helps management quickly compare service performance and prioritize improvements.*
 
 ## Grading Rubric 🎓 {#grading-rubric}
 

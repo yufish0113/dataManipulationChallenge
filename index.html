@@ -453,7 +453,7 @@ First few rows of product line data:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>Question 1Answers: (1)The dtype of the ‘actualShipDate’ series is datetime64[ns]. Because the column are parsed as datetimes using the parse_dates argument in read_csv(). (2)We can find out using the code: shipments_df[‘actualShipDate’].dtype (3)Because the comparison only works if both sides are datetimes. The comparisons between dates require compatible formats. If one column is stored as a datetime object and the other is not, the comparison may fail or produce incorrect results, for example, it might be done lexicographically(comparing two dates as strings instead of actual dates). </em></p>
+<p><em>Question 1 Answer: (1)The dtype of the ‘actualShipDate’ series is datetime64[ns]. Because the column are parsed as datetimes using the parse_dates argument in read_csv(). (2)We can find out using the code: shipments_df[‘actualShipDate’].dtype (3)Because the comparison only works if both sides are datetimes. The comparisons between dates require compatible formats. If one column is stored as a datetime object and the other is not, the comparison may fail or produce incorrect results, for example, it might be done lexicographically(comparing two dates as strings instead of actual dates). </em></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -479,7 +479,7 @@ First few rows of product line data:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>Question 3 Answer:The lateStatement line has two main problems. First, shipments_df does not yet contain the is_late column. The column is_late is created within the same .assign() call, so when lateStatement tries to access shipments_df[‘is_late’], it results in a ‘KeyError’. Second, the code references the wrong DataFrame. Inside method chaining, we must use lambda df: to refer to the current version of the DataFrame. Using shipments_df refers to the original DataFrame, not the updated one with the newly created columns. The issue can be fixed by using: lateStatement=lambda df: df[‘is_late’].map({True: “Darn Shipment is Late”, False: “Shipment is on Time”}).</em></p>
+<p><em>Question 3 Answer: The lateStatement line has two main problems. First, shipments_df does not yet contain the is_late column. The column is_late is created within the same .assign() call, so when lateStatement tries to access shipments_df[‘is_late’], it results in a ‘KeyError’. Second, the code references the wrong DataFrame. Inside method chaining, we must use lambda df: to refer to the current version of the DataFrame. Using shipments_df refers to the original DataFrame, not the updated one with the newly created columns. The issue can be fixed by using: lateStatement=lambda df: df[‘is_late’].map({True: “Darn Shipment is Late”, False: “Shipment is on Time”}).</em></p>
 </div>
 </div>
 </section>
@@ -564,7 +564,7 @@ Late shipments sample:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>Question 2 Answer:To query rows for shipments that are at least a certain number of days late using a variable, we can use the <code>@</code> symbol in <code>.query()</code> to reference Python variables. For example, to query shipments that are at least 5 days late, we can first set: late_threshold = 5 Then use: .query(‘days_late &gt;= <span class="citation" data-cites="late_threshold">@late_threshold</span>’) This will return shipments that are at least 5 days late. If we want to change the number of late days, we can simply change the value of the variable to adjust the threshold.</em></p>
+<p><em>Question 2 Answer: To query rows for shipments that are at least a certain number of days late using a variable, we can use the <code>@</code> symbol in <code>.query()</code> to reference Python variables. For example, to query shipments that are at least 5 days late, we can first set: late_threshold = 5 Then use: .query(‘days_late &gt;= <span class="citation" data-cites="late_threshold">@late_threshold</span>’) This will return shipments that are at least 5 days late. If we want to change the number of late days, we can simply change the value of the variable to adjust the threshold.</em></p>
 </div>
 </div>
 </section>
@@ -681,7 +681,7 @@ Remaining columns: ['shipID', 'plannedShipDate', 'actualShipDate', 'partID', 'is
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>Question 1 Answer: (1) <code>ascending=True</code> sorts from smallest to largest (For example, A→Z, 0→9, False before True). <code>ascending=False</code> sorts from largest to smallest (For example, Z→A, 9→0, True before False). In this business case: for <code>days_late</code>, <code>ascending=False</code> means puts the worst (most days late) shipments first. (2)To sort by multiple columns, we pass a list of column names to sort_values(). For example: <code>clean_shipments.sort_values(by=['is_late', 'days_late'], ascending=[False, False])</code> sorts first by <code>is_late</code> (late first), then by <code>days_late</code> (most days late first).</em></p>
+<p><em>Question 1 Answer: (1) <code>ascending=True</code> sorts from smallest to largest (For example, A→Z, 0→9, False before True). <code>ascending=False</code> sorts from largest to smallest (For example, Z→A, 9→0, True before False). In this business case: for <code>days_late</code>, <code>ascending=False</code> means puts the worst (most days late) shipments first. (2) To sort by multiple columns, we pass a list of column names to sort_values(). For example: <code>clean_shipments.sort_values(by=['is_late', 'days_late'], ascending=[False, False])</code> sorts first by <code>is_late</code> (late first), then by <code>days_late</code> (most days late first).</em></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -999,6 +999,7 @@ Percentage with multiple categories: 23.3%</code></pre>
 </div>
 </div>
 </div>
+<p><em>This visualization shows the on-time delivery rate across product categories. We can see clear differences in performance, with some categories achieving higher service levels than others. Categories with lower on-time rates may require operational review to identify potential fulfillment challenges. Overall, the chart helps management quickly compare service performance and prioritize improvements.</em></p>
 </section>
 </section>
 <section id="grading-rubric" class="level2">
